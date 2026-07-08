@@ -61,7 +61,7 @@ toml==0.10.2
 tox==4.56.2
 tqdm==4.68.4
 twine==6.2.0
-virtualenv==20.0.30
+virtualenv==21.6.0
 urllib3==1.25.10
 watchdog==0.10.3
 wcwidth==0.2.5
