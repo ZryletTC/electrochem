@@ -5,7 +5,7 @@ arrow==1.4.0
 atomicwrites==1.4.1
 attrs==26.1.0
 Babel==2.18.0
-binaryornot==0.4.4
+binaryornot==0.6.0
 bleach==3.1.5
 bump2version==1.0.0
 certifi==2020.6.20
