@@ -4,7 +4,7 @@ cycler==0.12.1
 idna==3.18
 kiwisolver==1.5.0
 matplotlib==3.11.0
-numpy==1.19.1
+numpy==2.5.1
 pandas==1.1.0
 Pillow==7.2.0
 pyodbc==4.0.30
