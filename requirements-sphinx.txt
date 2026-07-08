@@ -44,7 +44,7 @@ pyflakes==3.4.0
 Pygments==2.20.0
 pyparsing==3.3.2
 PyQt5==5.15.11
-PyQt5-sip==12.8.0
+PyQt5-sip==12.18.0
 pytest==6.0.1
 pytest-runner==5.2
 python-dateutil==2.8.1
