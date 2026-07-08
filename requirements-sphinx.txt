@@ -20,7 +20,7 @@ docutils==0.23
 entrypoints==0.4
 filelock==3.29.7
 flake8==7.3.0
-idna==2.10
+idna==3.18
 imagesize==1.2.0
 importlib-metadata==1.7.0
 Jinja2==2.11.2
