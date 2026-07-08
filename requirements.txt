@@ -6,7 +6,7 @@ kiwisolver==1.5.0
 matplotlib==3.11.0
 numpy==2.5.1
 pandas==3.0.4
-Pillow==7.2.0
+Pillow==12.3.0
 pyodbc==4.0.30
 pyparsing==2.4.7
 PyQt5==5.15.0
