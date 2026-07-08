@@ -3,7 +3,7 @@ appdirs==1.4.4
 argh==0.31.3
 arrow==1.4.0
 atomicwrites==1.4.1
-attrs==19.3.0
+attrs==26.1.0
 Babel==2.8.0
 binaryornot==0.4.4
 bleach==3.1.5
