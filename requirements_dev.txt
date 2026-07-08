@@ -58,7 +58,7 @@ Sphinx==9.1.0
 sphinxcontrib-websupport==2.0.0
 text-unidecode==1.3
 toml==0.10.2
-tox==3.18.1
+tox==4.56.2
 tqdm==4.48.2
 twine==3.2.0
 virtualenv==20.0.30
