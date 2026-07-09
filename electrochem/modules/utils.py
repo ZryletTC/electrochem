@@ -1,7 +1,6 @@
 from pkg_resources import parse_version
 import requests
 from requests.exceptions import HTTPError
-import json
 from numpy import round, isnan
 import re
 import modules.errors as errors

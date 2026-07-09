@@ -1,8 +1,5 @@
 import sys
-from PyQt5 import QtWidgets, uic, Qt
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PyQt5 import QtWidgets, Qt
 
 from modules.MainWindow import Ui_MainWindow
 import modules.gui_interact as gui_interact

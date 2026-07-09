@@ -1,15 +1,8 @@
 import os
-import sys
 
 import matplotlib
-import requests
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
-from matplotlib.figure import Figure
-from pkg_resources import parse_version
 from PyQt5.QtWidgets import QApplication, QFileDialog
-from requests.exceptions import HTTPError
 
-import modules.errors
 from modules.utils import getActiveMass
 from modules.display import displayError, setUpGraph
 from parse import toDataframe, parseArbin, generateEchemSummary, extractEchem

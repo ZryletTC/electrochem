@@ -14,11 +14,6 @@ import os.path
 import tkinter as tk
 from tkinter import filedialog
 import csv
-import re
-from pkg_resources import parse_version
-import requests
-from requests.exceptions import HTTPError
-import json
 import os
 
 from modules.utils import safeRound, compareVersion, getActiveMass
