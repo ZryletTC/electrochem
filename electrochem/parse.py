@@ -1,23 +1,24 @@
+import csv
+import os
+import os.path
+import tkinter as tk
+from tkinter import filedialog
+
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+
+from electrochem.modules import errors
+from electrochem.modules.utils import getActiveMass, safeRound
+
 try:
     import pyodbc
 except Exception:
     pass
-import numpy as np
-if __name__ == "__main__":
-    import matplotlib.pyplot as plt
-else:
-    import matplotlib
-    matplotlib.use('Qt5Agg')
-    
-import os.path
-import tkinter as tk
-from tkinter import filedialog
-import csv
-import os
 
-from electrochem.modules.utils import safeRound, getActiveMass
-import electrochem.modules.errors as errors
+if __name__ != "__main__":
+    matplotlib.use('Qt5Agg')
 
 
 class EchemData:

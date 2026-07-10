@@ -1,9 +1,12 @@
-from pkg_resources import parse_version
-import requests
-from requests.exceptions import HTTPError
-from numpy import round, isnan
 import re
-import electrochem.modules.errors as errors
+
+import requests
+from numpy import isnan, round
+from pkg_resources import parse_version
+from requests.exceptions import HTTPError
+
+from electrochem.modules import errors
+
 
 #Description: a safe rounding function
 def safeRound(x, dec):

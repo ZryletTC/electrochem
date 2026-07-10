@@ -1,9 +1,9 @@
 import sys
-from PyQt5 import QtWidgets, Qt
 
+from PyQt5 import Qt, QtWidgets
+
+from electrochem.modules import display, gui_interact
 from electrochem.modules.MainWindow import Ui_MainWindow
-import electrochem.modules.gui_interact as gui_interact
-import electrochem.modules.display as display
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
