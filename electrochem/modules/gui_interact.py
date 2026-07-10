@@ -3,9 +3,10 @@ import os
 import matplotlib
 from PyQt5.QtWidgets import QApplication, QFileDialog
 
-from modules.utils import getActiveMass
-from modules.display import displayError, setUpGraph
-from parse import toDataframe, parseArbin, generateEchemSummary, extractEchem
+from electrochem.modules.utils import getActiveMass
+from electrochem.modules.display import displayError, setUpGraph
+from electrochem.parse import (toDataframe, parseArbin, generateEchemSummary,
+                               extractEchem)
 
 matplotlib.use('Qt5Agg')
 

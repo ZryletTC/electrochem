@@ -3,7 +3,7 @@ import requests
 from requests.exceptions import HTTPError
 from numpy import round, isnan
 import re
-import modules.errors as errors
+import electrochem.modules.errors as errors
 
 #Description: a safe rounding function
 def safeRound(x, dec):

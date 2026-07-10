@@ -16,8 +16,8 @@ from tkinter import filedialog
 import csv
 import os
 
-from modules.utils import safeRound, getActiveMass
-import modules.errors as errors
+from electrochem.modules.utils import safeRound, getActiveMass
+import electrochem.modules.errors as errors
 
 
 class EchemData:
