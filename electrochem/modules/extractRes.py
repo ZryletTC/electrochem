@@ -16,8 +16,8 @@ def read_arbin(source_path, save_path, table_name):
     header_row = []
     for r in cur.columns(table=table_name):
         header_row.append(r.column_name)
-        
-    # run a query and get the results 
+
+    # run a query and get the results
     SQL = 'SELECT * FROM %s;'%(table_name) # your query goes here
     rows = cur.execute(SQL).fetchall()
     rows.insert(0, header_row)

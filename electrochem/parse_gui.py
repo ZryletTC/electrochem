@@ -29,23 +29,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.plot_button.clicked.connect(self.plotButtonClicked)
         self.raw_button.clicked.connect(self.rawButtonClicked)
 
-    def keyPressEvent(self,event): 
-        if event.key()== Qt.Key_Return: 
+    def keyPressEvent(self,event):
+        if event.key()== Qt.Key_Return:
             self.runButtonClicked()
 
-    # Connection Functions 
+    # Connection Functions
     def runButtonClicked(self):
         gui_interact.runTasks(self)
-    
+
     def tableButtomClicked(self):
         gui_interact.getTablePath(self)
 
     def plotButtonClicked(self):
         gui_interact.getFigurePath(self)
-    
+
     def rawButtonClicked(self):
         gui_interact.getRawDataPath(self)
-        
+
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()

@@ -37,7 +37,7 @@ class DataSet:
     def __init__(self, name, mass, indexed_dfs):
         self.name = name
         self.mass = mass
-        self.echem_df = indexed_dfs 
+        self.echem_df = indexed_dfs
         self.properties = {}
     def addProperty(self, name, value):
         self.properties[name] = value
@@ -61,8 +61,8 @@ def parseArbin(source_path, save_path=None, table_name='Channel_Normal_Table'):
     header_row = []
     for r in cur.columns(table=table_name):
         header_row.append(r.column_name)
-        
-    # run a query and get the results 
+
+    # run a query and get the results
     SQL = 'SELECT * FROM %s;'%(table_name) # your query goes here
     rows = cur.execute(SQL).fetchall()
     rows.insert(0, header_row)
@@ -77,7 +77,7 @@ def parseArbin(source_path, save_path=None, table_name='Channel_Normal_Table'):
 # Description: parsed the excel file for Arbin cycler and extracts raw data into a Pandas dataframe
 # Charge capacity data for cycle 'i' can be retrieved by:
 # indexedData[i]['charge']['Charge_Capacity']
-# Discharge capacity data for cycle 'i' can be retrieved by: 
+# Discharge capacity data for cycle 'i' can be retrieved by:
 # indexedData[i]['discharge']['Discharge_Capacity']
 # Charge voltage data for cycle 'i' can be retrieved by: indexedData[i]['charge']['Voltage']
 # Discharge voltage data for cycle 'i' can be retrieved by: indexedData[i]['discharge']['Voltage']
@@ -91,8 +91,8 @@ def toDataframe(path, active_mass):
             echem_df = pd.read_excel(path, sheet_name=1)
             # change column names for excel
             echem_df = echem_df.rename(columns={
-                'Current(A)': 'Current', 
-                'Charge_Capacity(Ah)': 'Charge_Capacity', 
+                'Current(A)': 'Current',
+                'Charge_Capacity(Ah)': 'Charge_Capacity',
                 'Discharge_Capacity(Ah)': 'Discharge_Capacity',
                 'Voltage(V)': 'Voltage',
                 'Charge_Energy(Wh)': 'Charge_Energy',
@@ -113,14 +113,14 @@ def toDataframe(path, active_mass):
             # Split data by Cycle Index
             df = echem_df[echem_df['Cycle_Index'] == i]
             # Remove soaking data
-            df = df[df['Step_Index'] != 1] 
+            df = df[df['Step_Index'] != 1]
             # Remove tail data
-            df = df[df['Step_Index'] != 4] 
+            df = df[df['Step_Index'] != 4]
             # Split data by charge
             charge_df = df[df['Current'] >= 0]
             # Split data by discharge
-            discharge_df = df[df['Current'] < 0] 
-            # Add data to list as a dictionary specifying charge/discharge  
+            discharge_df = df[df['Current'] < 0]
+            # Add data to list as a dictionary specifying charge/discharge
             indexedData.append({'charge':charge_df, 'discharge':discharge_df})
     except OSError:
         raise errors.rawDataError()
@@ -170,7 +170,7 @@ def extractEchem(indexedData):
     # Calculate single curve echem data for each cycle, then average out
     for i in range(len(indexedData)):
         data = extractCycleEchem(indexedData, i)
-        if data.avgVoltage: 
+        if data.avgVoltage:
             avgVoltage.append(data.avgVoltage)
         if data.dischargeCapacity:
             avgDischargeCap.append(data.dischargeCapacity)
@@ -179,7 +179,7 @@ def extractEchem(indexedData):
         if data.power:
             avgPower.append(data.power)
     avgEfficiency = np.mean(avgDischargeCap)/np.mean(avgChargeCap)*100
-    avgData = EchemData(np.mean(avgDischargeCap), np.mean(avgChargeCap), np.mean(avgPower), 
+    avgData = EchemData(np.mean(avgDischargeCap), np.mean(avgChargeCap), np.mean(avgPower),
     np.mean(avgVoltage), avgEfficiency)
     if __name__ == "__main__":
         print('--------------------------------------------------------------------')
@@ -197,7 +197,7 @@ def plotEchem(indexedData, figurePath, system, cycleList, show=True, molar_mass=
     plt.rcParams.update({'font.size': 25})
     plt.rcParams.update({'font.family':'Arial'})
     plt.figure(figsize=(8,6.5))
-    fsize = 25  
+    fsize = 25
     if not __name__ == "__main__":
         #TODO: write case for package
         return
@@ -284,8 +284,8 @@ def generateEchemSummary(system, tablePath, indexedData, suppData):
     if __name__ == "__main__":
         print('Successfully saved data table!')
 
-# Description: main function 
-def runTasks(filepath, choosefile, figurePath, tablePath, cycleList, mass, 
+# Description: main function
+def runTasks(filepath, choosefile, figurePath, tablePath, cycleList, mass,
     ACBratio, rate, cellType, anode, comments, molar_mass=0, active_ions=2):
     # Get system name
     filename = os.path.splitext(os.path.basename(filepath))[0]

@@ -12,7 +12,7 @@ matplotlib.use('Qt5Agg')
 
 
 class InputData():
-    def __init__(self, dataPath, figurePath, tablePath, initCycle, numCycles, system, mass, ratio, 
+    def __init__(self, dataPath, figurePath, tablePath, initCycle, numCycles, system, mass, ratio,
     rate, type, anode, comments):
         self.dataPath = dataPath
         self.figurePath = figurePath
@@ -39,12 +39,12 @@ def getInputs(self):
     ratio = self.ratio_input.text()
     rate = self.rate_comboBox.currentText()
     type = self.type_input.text()
-    anode = self.anode_input.text() 
+    anode = self.anode_input.text()
     comments = self.comments_input.toPlainText()
-    dataPath = self.raw_inputfile.text() 
-    figurePath = self.figure_path.text() 
-    tablePath = self.table_path.text() 
-    inputs = InputData(dataPath, figurePath, tablePath, initCycle, numCycles, system, mass, ratio, 
+    dataPath = self.raw_inputfile.text()
+    figurePath = self.figure_path.text()
+    tablePath = self.table_path.text()
+    inputs = InputData(dataPath, figurePath, tablePath, initCycle, numCycles, system, mass, ratio,
     rate, type, anode, comments)
     return inputs
 
@@ -138,8 +138,8 @@ def runTasks(self):
         # Plot data
         plotData(self, partitioned_data, inputs.figurePath, inputs.system, inputs.initCycle, inputs.numCycles)
         # Generate CSV summary file
-        generateEchemSummary(inputs.system, inputs.tablePath, extractedData.firstCycleData, extractedData.averageData, 
-        extractedData.voltageRange, inputs.mass, inputs.ratio, inputs.rate, 
+        generateEchemSummary(inputs.system, inputs.tablePath, extractedData.firstCycleData, extractedData.averageData,
+        extractedData.voltageRange, inputs.mass, inputs.ratio, inputs.rate,
         inputs.type, inputs.anode, inputs.comments)
         # Save inputs
         saveInputs(self, inputs)
