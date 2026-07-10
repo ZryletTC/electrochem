@@ -16,7 +16,7 @@ from tkinter import filedialog
 import csv
 import os
 
-from modules.utils import safeRound, compareVersion, getActiveMass
+from modules.utils import safeRound, getActiveMass
 import modules.errors as errors
 
 
