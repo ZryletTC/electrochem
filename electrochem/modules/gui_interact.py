@@ -125,7 +125,7 @@ def runTasks(self):
         QApplication.processEvents()
         extension = os.path.splitext(inputs.dataPath)[1]
         if extension == '.res':
-            readArbin(inputs.dataPath, 'data.csv', 'Channel_Normal_Table')
+            parseArbin(inputs.dataPath, 'data.csv', 'Channel_Normal_Table')
             path = 'data.csv'
         else:
             path = inputs.dataPath
