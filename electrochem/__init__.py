@@ -6,3 +6,6 @@ __version__ = '0.2.0'
 from electrochem.parse import (extractCycleEchem, extractEchem,
                                generateEchemSummary, generateSummary,
                                parseArbin, plotEchem, toDataframe)
+
+__all__ = ['parseArbin', 'toDataframe', 'extractEchem', 'extractCycleEchem',
+           'generateSummary', 'generateEchemSummary', 'plotEchem']
