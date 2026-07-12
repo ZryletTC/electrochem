@@ -8,10 +8,10 @@ from electrochem.modules.MainWindow import Ui_MainWindow
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
-        super(MainWindow, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.setupUi(self)
         self.setvariables()
-        self.setWindowTitle("Electrochemistry Parser v{}".format(self.version))
+        self.setWindowTitle(f"Electrochemistry Parser v{self.version}")
         self.connectEvents()
         display.initDisplay(self)
         display.readInputFromSave(self)

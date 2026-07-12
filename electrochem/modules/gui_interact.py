@@ -50,6 +50,7 @@ class InputData:
             )
 
 
+# ARE THESE FUNCTIONS MEANT TO BE METHODS OF THE ABOVE CLASS??
 # Reads the inputs in the GUI and assigns them to variables
 def getInputs(self):
     system = self.system_input.text()
@@ -82,18 +83,17 @@ def getInputs(self):
 
 
 def saveInputs(self, inputs):
-    f = open("savefile.txt", "w")
-    f.write("initCycle, %s\n" % (inputs.initCycle))
-    f.write("numCycles, %s\n" % (inputs.numCycles))
-    f.write("mass, %s\n" % (inputs.mass))
-    f.write("ratio, %s\n" % (inputs.ratio))
-    f.write("rate, %s\n" % (inputs.rate))
-    f.write("type, %s\n" % (inputs.type))
-    f.write("anode, %s\n" % (inputs.anode))
-    f.write("dataPath, %s\n" % (inputs.dataPath))
-    f.write("figurePath, %s\n" % (inputs.figurePath))
-    f.write("tablePath, %s" % (inputs.tablePath))
-    f.close()
+    with open("savefile.txt", "w", encoding="utf-8") as f:
+        f.write(f"initCycle, {inputs.initCycle}\n")
+        f.write(f"numCycles, {inputs.numCycles}\n")
+        f.write(f"mass, {inputs.mass}\n")
+        f.write(f"ratio, {inputs.ratio}\n")
+        f.write(f"rate, {inputs.rate}\n")
+        f.write(f"type, {inputs.type}\n")
+        f.write(f"anode, {inputs.anode}\n")
+        f.write(f"dataPath, {inputs.dataPath}\n")
+        f.write(f"figurePath, {inputs.figurePath}\n")
+        f.write(f"tablePath, {inputs.tablePath}")
 
 
 def getRawDataPath(self):
@@ -141,7 +141,7 @@ def plotData(
         ax = self.graphWindow.gca
         color = next(ax._get_lines.prop_cycler)["color"]
         self.graphWindow.axes.plot(
-            x1_data, y1_data, "-", color=color, label="Cycle %s" % (index)
+            x1_data, y1_data, "-", color=color, label=f"Cycle {index}"
         )
         self.graphWindow.axes.plot(x2_data, y2_data, "-", color=color)
     self.graphWindow.axes.tick_params(axis="both", which="major", labelsize=fsize)
@@ -208,5 +208,4 @@ def runTasks(self):
     except Exception as e:
         if self.debug:
             raise e
-        else:
-            displayError(self, str(e))
+        displayError(self, str(e))

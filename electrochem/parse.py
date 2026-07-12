@@ -33,14 +33,11 @@ class EchemData:
 
     def __repr__(self):
         string = (
-            "dischargeCapacity: %s\ncharge capacity: %s\npower: %s\naverage voltage: %s\nefficiency: %s\n"
-            % (
-                self.dischargeCapacity,
-                self.chargeCapacity,
-                self.power,
-                self.avgVoltage,
-                self.efficiency,
-            )
+            f"dischargeCapacity: {self.dischargeCapacity}\n"
+            f"charge capacity: {self.chargeCapacity}\n"
+            f"power: {self.power}\n"
+            f"average voltage: {self.avgVoltage}\n"
+            f"efficiency: {self.efficiency}\n"
         )
         return string
 
@@ -71,32 +68,35 @@ def parseArbin(source_path, save_path=None, table_name="Channel_Normal_Table"):
     PWD = "pw"
 
     # connect to db
-    con = pyodbc.connect("DRIVER={};DBQ={};PWD={}".format(DRV, MDB, PWD))
+    con = pyodbc.connect(f"DRIVER={DRV};DBQ={MDB};PWD={PWD}")
     cur = con.cursor()
     header_row = []
     for r in cur.columns(table=table_name):
         header_row.append(r.column_name)
 
     # run a query and get the results
-    SQL = "SELECT * FROM %s;" % (table_name)  # your query goes here
+    SQL = f"SELECT * FROM {table_name};"  # your query goes here
     rows = cur.execute(SQL).fetchall()
     rows.insert(0, header_row)
     cur.close()
     con.close()
 
     if save_path:
-        with open(save_path, "w", newline="") as f:
+        with open(save_path, "w", newline="", encoding="utf-8") as f:
             csv_writer = csv.writer(f)
             csv_writer.writerows(rows)
 
 
-# Description: parsed the excel file for Arbin cycler and extracts raw data into a Pandas dataframe
+# Description: parsed the excel file for Arbin cycler and extracts raw data into a
+#              Pandas dataframe
 # Charge capacity data for cycle 'i' can be retrieved by:
-# indexedData[i]['charge']['Charge_Capacity']
+#     indexedData[i]['charge']['Charge_Capacity']
 # Discharge capacity data for cycle 'i' can be retrieved by:
-# indexedData[i]['discharge']['Discharge_Capacity']
-# Charge voltage data for cycle 'i' can be retrieved by: indexedData[i]['charge']['Voltage']
-# Discharge voltage data for cycle 'i' can be retrieved by: indexedData[i]['discharge']['Voltage']
+#     indexedData[i]['discharge']['Discharge_Capacity']
+# Charge voltage data for cycle 'i' can be retrieved by:
+#     indexedData[i]['charge']['Voltage']
+# Discharge voltage data for cycle 'i' can be retrieved by:
+#     indexedData[i]['discharge']['Voltage']
 def toDataframe(path, active_mass):
     try:
         extension = os.path.splitext(path)[1]
@@ -236,9 +236,8 @@ def plotEchem(
     cycleList,
     show=True,
     molar_mass=0,
-    type="cap",
-    style="standard",
 ):
+    # TODO: Change how this option variable is used
     option = 0
     plt.rcParams.update({"font.size": 25})
     plt.rcParams.update({"font.family": "Arial"})
@@ -250,11 +249,11 @@ def plotEchem(
     ax = plt.gca()
     # For each cycle, plot both charge and discharge curves with the same color
     for index in cycleList:
-        if index < len(indexedData) and index >= 0:
+        if 0 <= index < len(indexedData):
             if option == 0:
                 x1_data = indexedData[index]["charge"]["Charge_Capacity"]
                 x2_data = indexedData[index]["discharge"]["Discharge_Capacity"]
-            elif option == 1:
+            else:  # option == 1
                 cap1_data = indexedData[index]["charge"]["Charge_Capacity"]
                 cap2_data = indexedData[index]["discharge"]["Discharge_Capacity"]
                 full_capacity = 2 / molar_mass * 96500 * 0.2777
@@ -271,7 +270,7 @@ def plotEchem(
                 "-",
                 color=color,
                 linewidth=4,
-                label="Cycle %s" % (index + 1),
+                label=f"Cycle {index + 1}",
             )
             plt.plot(x2_data, y2_data, "-", color=color, linewidth=4)
     plt.ylim(1.3, 4.3)
@@ -281,7 +280,7 @@ def plotEchem(
     # plt.title('Cycling Data for ' + 'Cathode A')
     if option == 1:
         plt.xlabel("$x$ in Na$_{2-x}$Mn$_3$(VO$_4$)$_2$PO$_4$", fontsize=fsize)
-    elif option == 0:
+    else:  # option == 0
         plt.xlabel("Capacity [mAh/g]", fontsize=fsize)
         full_capacity = 1 / molar_mass * 96500 * 0.2777
         ax2 = ax.secondary_xaxis("top")
@@ -302,7 +301,7 @@ def plotEchem(
             if __name__ == "__main__":
                 print("Plot saved to ", figurePath + system + ".png")
                 print(
-                    "--------------------------------------------------------------------"
+                    "------------------------------------------------------------------"
                 )
     except PermissionError:
         raise errors.figurePermissionError
@@ -312,13 +311,13 @@ def plotEchem(
 
 
 def generateSummary(data, name, tablePath):
-    with open(tablePath + "/" + name + ".csv", mode="w", newline="") as csvfile:
+    file_path = tablePath + "/" + name + ".csv"
+    with open(file_path, mode="w", newline="", encoding="utf-8") as csvfile:
         csv_writer = csv.writer(
             csvfile, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL
         )
         for key, value in data.items():
             csv_writer.writerow([key, value])
-    return
 
 
 def generateEchemSummary(system, tablePath, indexedData, suppData):
@@ -364,7 +363,6 @@ def runTasks(
     anode,
     comments,
     molar_mass=0,
-    active_ions=2,
 ):
     # Get system name
     filename = os.path.splitext(os.path.basename(filepath))[0]
@@ -381,7 +379,7 @@ def runTasks(
     if extension == ".res":
         parseArbin(path, "data.csv", "Channel_Normal_Table")
         path = "data.csv"
-    elif extension == ".csv" or ".xls":
+    elif extension == ".csv" or extension == ".xls":
         pass
     # Get active mass
     activeMass = getActiveMass(mass, ACBratio)
@@ -408,9 +406,13 @@ if __name__ == "__main__":
         # filepath = 'd:/Clement Research/Electrochem/VW-PMnMn-B02-S01-E1-01.xls',
         # filepath = 'd:/Clement Research/Electrochem/VW-PMnAl-B01-S01-B-E1.xls',
         filepath="d:/Clement Research/Electrochem/PMnMn-B04-S01-B-E3.res",
-        choosefile=False,  # whether or not to choose your file directly (will ignore filepath, filename if true)
-        figurePath="d:/Clement Research/Electrochem/Figures/",  # the directory to save your plot in
-        tablePath="d:/Clement Research/Electrochem/Summaries/",  # the directory to save your table in
+        # whether or not to choose your file directly
+        # (will ignore filepath, filename if true)
+        choosefile=False,
+        # the directory to save your plot in
+        figurePath="d:/Clement Research/Electrochem/Figures/",
+        # the directory to save your table in
+        tablePath="d:/Clement Research/Electrochem/Summaries/",
         cycleList=range(5),
         # mass = 28.5, # mass of entire cathode (do not multiply by active mass ratio)
         # mass = 17.6,

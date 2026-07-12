@@ -12,11 +12,17 @@ class ratioError(Exception):
 
 class tablePermissionError(Exception):
     def __init__(self):
-        self.message = "Cannot save data table because the file is currently in use by another program."
+        self.message = (
+            "Cannot save data table because the file is currently in use "
+            "by another program."
+        )
         super().__init__(self.message)
 
 
 class figurePermissionError(Exception):
     def __init__(self):
-        self.message = "Cannot save figure because the file is currently in use by another program."
+        self.message = (
+            "Cannot save figure because the file is currently in use "
+            "by another program."
+        )
         super().__init__(self.message)
