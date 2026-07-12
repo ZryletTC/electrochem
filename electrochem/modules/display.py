@@ -9,15 +9,16 @@ from pkg_resources import parse_version
 from PyQt5 import QtCore, QtWidgets
 from requests.exceptions import HTTPError
 
-matplotlib.use('Qt5Agg')
+matplotlib.use("Qt5Agg")
+
 
 def initDisplay(self):
-    #Set initial display background color
+    # Set initial display background color
     self.textBrowser.setStyleSheet("background-color: white; padding: 50px;")
     self.textBrowser.setAlignment(QtCore.Qt.AlignCenter)
     self.textBrowser.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse)
     versionText = getVersionText(self)
-    #self.displayView.setBackgroundBrush(brush)
+    # self.displayView.setBackgroundBrush(brush)
     txt = '\
     <div style="color: #202020;">\
         <h2 style="text-align: center">\
@@ -35,39 +36,42 @@ def initDisplay(self):
             is easy to use and will generate both a customizable charge/ discharge plot and a summary table \
             containing information such as average voltage, capacities, Coulombic efficiencies, and more. \
             For more detailed instructions and to access the open-source code,\
-            please refer to the project'"'"'s github page: \
+            please refer to the project' "'" 's github page: \
             <a href="https://github.com/vince-wu/electrochemical-parsing">\
             https://github.com/vince-wu/electrochemical-parsing </a>.\
         </p>\
             %s\
-    </div>'%(self.version, versionText)
+    </div>' % (self.version, versionText)
     text = self.textBrowser.setText(txt)
     self.textBrowser.setOpenExternalLinks(True)
 
+
 def getVersionText(self):
-    color = '#000'
-    boldcolor = '#00f'
-    versionText = ''
+    color = "#000"
+    boldcolor = "#00f"
+    versionText = ""
     debug = False
     connected = True
     if debug:
-        newestVersion = 'v2.0.0'
-        bodyText = ''
+        newestVersion = "v2.0.0"
+        bodyText = ""
     if not debug:
-        #Get program's newest version from Github API, compare to current version
+        # Get program's newest version from Github API, compare to current version
         json_response = getJson()
         # json_response = None
         if json_response:
-            newestVersion = json_response['tag_name']
-            bodyText = json_response['body']
-            bodyText = re.sub(r'(<li>)', '<li> ', bodyText)
-            bodyText = re.sub(r'(Changelog:)', '{} Changelog:'.format(newestVersion), bodyText)
-            newestVersionNumber = re.sub('[^0-9,.]','',newestVersion)
+            newestVersion = json_response["tag_name"]
+            bodyText = json_response["body"]
+            bodyText = re.sub(r"(<li>)", "<li> ", bodyText)
+            bodyText = re.sub(
+                r"(Changelog:)", "{} Changelog:".format(newestVersion), bodyText
+            )
+            newestVersionNumber = re.sub("[^0-9,.]", "", newestVersion)
         else:
             connected = False
 
-    currentVersionNumber = re.sub('[^0-9,.]','',self.version)
-    #Alert user based on if version is updated, ahead, or behind
+    currentVersionNumber = re.sub("[^0-9,.]", "", self.version)
+    # Alert user based on if version is updated, ahead, or behind
     if connected == False:
         versionText = '\
         <p style="color: %s; font-size:10pt; text-align:center">\
@@ -85,7 +89,7 @@ def getVersionText(self):
                 ***\
             </span>\
         </p>\
-        '%(color, boldcolor, boldcolor)
+        ' % (color, boldcolor, boldcolor)
     elif parse_version(newestVersionNumber) > parse_version(currentVersionNumber):
         versionText = '\
         <p style="color: %s; font-size:10pt; text-align:center">\
@@ -106,7 +110,7 @@ def getVersionText(self):
         <p style="color: %s; font-size:9pt">\
             %s\
         </p>\
-        '%(color, boldcolor, boldcolor, color, bodyText)
+        ' % (color, boldcolor, boldcolor, color, bodyText)
 
     elif parse_version(newestVersionNumber) == parse_version(currentVersionNumber):
         versionText = '\
@@ -123,7 +127,7 @@ def getVersionText(self):
                 %s\
             </p>\
         </p>\
-        '%(color, boldcolor, boldcolor, color, bodyText)
+        ' % (color, boldcolor, boldcolor, color, bodyText)
     elif parse_version(newestVersionNumber) < parse_version(currentVersionNumber):
         versionText = '\
         <p style="color: %s; font-size:10pt; text-align:center">\
@@ -140,50 +144,52 @@ def getVersionText(self):
                 %s\
             </p>\
         </p>\
-        '%(color, boldcolor, boldcolor, color, bodyText)
+        ' % (color, boldcolor, boldcolor, color, bodyText)
     return versionText
 
+
 def getJson():
-	try:
-		response = requests.get(
-			'https://api.github.com/repos/vince-wu/electrochemical-parsing/releases/latest'
-			)
-		json_response = response.json()
-		return json_response
-	except HTTPError as http_err:
-		return None
-	except Exception as err:
-		return None
+    try:
+        response = requests.get(
+            "https://api.github.com/repos/vince-wu/electrochemical-parsing/releases/latest"
+        )
+        json_response = response.json()
+        return json_response
+    except HTTPError as http_err:
+        return None
+    except Exception as err:
+        return None
 
 
 def readInputFromSave(self):
-    if os.path.isfile('savefile.txt'):
-        f = open('savefile.txt', 'r')
+    if os.path.isfile("savefile.txt"):
+        f = open("savefile.txt", "r")
         lines = f.readlines()
         for l in lines:
-            input = [x.strip() for x in l.split(',')]
+            input = [x.strip() for x in l.split(",")]
             field = input[0]
             val = input[1]
-            if field == 'initCycle':
+            if field == "initCycle":
                 self.first_cycle_spinBox.setValue(int(val))
-            elif field == 'numCycles':
+            elif field == "numCycles":
                 self.num_cycles_spinBox.setValue(int(val))
-            elif field == 'mass':
+            elif field == "mass":
                 self.mass_doubleSpinBox.setValue(float(val))
-            elif field == 'ratio':
+            elif field == "ratio":
                 self.ratio_input.setText(val)
-            elif field == 'rate':
+            elif field == "rate":
                 self.rate_comboBox.setCurrentText(val)
-            elif field == 'type':
+            elif field == "type":
                 self.type_input.setText(val)
-            elif field == 'anode':
+            elif field == "anode":
                 self.anode_input.setText(val)
-            elif field == 'dataPath':
+            elif field == "dataPath":
                 self.raw_inputfile.setText(val)
-            elif field == 'figurePath':
+            elif field == "figurePath":
                 self.figure_path.setText(val)
-            elif field == 'tablePath':
+            elif field == "tablePath":
                 self.table_path.setText(val)
+
 
 class MplCanvas(FigureCanvasQTAgg):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
@@ -192,16 +198,18 @@ class MplCanvas(FigureCanvasQTAgg):
         self.gca = self.fig.gca()
         super(MplCanvas, self).__init__(self.fig)
 
+
 def setUpGraph(self):
     dpi = 100
-    height = self.textBrowser.frameGeometry().height()/dpi
-    width = self.textBrowser.frameGeometry().width()/dpi
+    height = self.textBrowser.frameGeometry().height() / dpi
+    width = self.textBrowser.frameGeometry().width() / dpi
     self.graphWindow = MplCanvas(self, width, height, dpi)
     self.verticalLayout.insertWidget(0, self.graphWindow)
     self.verticalLayout.removeWidget(self.textBrowser)
     self.textBrowser.deleteLater()
     self.textBrowser = None
     self.display_exists = False
+
 
 def displayError(self, text):
     msg = QtWidgets.QMessageBox()

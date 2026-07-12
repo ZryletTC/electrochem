@@ -18,7 +18,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     # set global class variables
     def setvariables(self):
-        self.version = '0.1.0'
+        self.version = "0.1.0"
         self.display_exists = True
         self.debug = False
 
@@ -29,8 +29,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.plot_button.clicked.connect(self.plotButtonClicked)
         self.raw_button.clicked.connect(self.rawButtonClicked)
 
-    def keyPressEvent(self,event):
-        if event.key()== Qt.Key_Return:
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return:
             self.runButtonClicked()
 
     # Connection Functions
@@ -46,7 +46,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def rawButtonClicked(self):
         gui_interact.getRawDataPath(self)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
     window.show()
