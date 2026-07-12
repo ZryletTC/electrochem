@@ -1,11 +1,12 @@
 # Development tools
+black==26.5.1
 bump2version==1.0.1
 cookiecutter==2.7.1
 coverage==7.15.0
 flake8==7.3.0
+isort==8.0.1
 mccabe==0.7.0
-pycodestyle==2.14.0
-pyflakes==3.4.0
+pylint==4.0.6
 pytest==9.1.1
 pytest-runner==6.0.1
 PyYAML==6.0.3

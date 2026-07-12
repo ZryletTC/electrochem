@@ -1,14 +1,14 @@
 """Console script for electrochem."""
+
 import sys
 
 import click
 
 
 @click.command()
-def main(args=None):
+def main():
     """Console script for electrochem."""
-    click.echo("Replace this message by putting your code into "
-               "electrochem.cli.main")
+    click.echo("Replace this message by putting your code into electrochem.cli.main")
     click.echo("See click documentation at https://click.palletsprojects.com/")
     return 0
 
